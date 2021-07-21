@@ -219,13 +219,6 @@ function changeCMYK(){
   update("CMYK");
 }
 function update(type){
-  const r = document.getElementById("R").value;
-  const g = document.getElementById("G").value;
-  const b = document.getElementById("B").value;
-  let pr = 100000;
-  let rbis =  Math.round(r/255*pr)/pr;
-  let gbis =  Math.round(g/255*pr)/pr;
-  let bbis =  Math.round(b/255*pr)/pr;
   if(type=="init"){
     document.getElementById("R").value == "" ? document.getElementById("R").value = 255 : null;
     document.getElementById("G").value == "" ? document.getElementById("G").value = 255 : null;
@@ -235,6 +228,13 @@ function update(type){
     document.getElementById("G").value == "" ? document.getElementById("G").value = 0 : null;
     document.getElementById("B").value == "" ? document.getElementById("B").value = 0 : null;
   }
+  const r = document.getElementById("R").value;
+  const g = document.getElementById("G").value;
+  const b = document.getElementById("B").value;
+  let pr = 100000;
+  let rbis =  Math.round(r/255*pr)/pr;
+  let gbis =  Math.round(g/255*pr)/pr;
+  let bbis =  Math.round(b/255*pr)/pr;
   if(type!=="hexa"){
     let hr = Number(r).toString(16);
     let hg = Number(g).toString(16);
