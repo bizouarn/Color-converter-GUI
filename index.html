@@ -31,7 +31,7 @@
   		<form>
         <p>
           <span>HEX</span>
-          <input minlenght="7" maxlength="7" id="hexa" type="text" placeholder="#" id="Hex" onkeypress="changeHexa" onchange="changeHexa()">
+          <input minlenght="7" maxlength="7" id="hexa" type="text" placeholder="#" onkeypress="changeHexa" onchange="changeHexa()">
         </p>
   			<p>
           <span>RGB</span>
@@ -60,12 +60,17 @@
         </p>
       </form>
     </div>
-  <content>
+  </content>
   <footer>
     website built by ❤ Aymeric Bizouarn
   </footer>
   <script>
   update("init");
+  document.getElementById("colorV").addEventListener("click", function() {
+	  document.getElementById("colorP").focus();
+	  document.getElementById("colorP").value = document.getElementById("hexa").value;
+	  document.getElementById("colorP").click();
+  });
   </script>
 </body>
 <!--

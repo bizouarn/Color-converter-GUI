@@ -222,8 +222,3 @@ function min(tableau){
   });
   return ret;
 }
-document.getElementById("colorV").addEventListener("click", function() {
-  document.getElementById("colorP").focus();
-  document.getElementById("colorP").value = document.getElementById("hexa").value;
-  document.getElementById("colorP").click();
-});
