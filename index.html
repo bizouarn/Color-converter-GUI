@@ -22,7 +22,7 @@
   <script>
   let root = document.documentElement;
   </script>
-  <content>
+  <div id="content">
     <div class="flex-midle">
       <input type="color" style="display:none;" id="colorP" onchange="document.getElementById('hexa').value = this.value; changeHexa();"/>
       <div class="square morph" id="colorV"></div>
@@ -60,10 +60,10 @@
         </p>
       </form>
     </div>
-  </content>
-  <footer>
-    website built by ❤ Aymeric Bizouarn
-  </footer>
+	  <footer>
+		website built by ❤ Aymeric Bizouarn
+	  </footer>
+  </div>
   <script>
   update("init");
   document.getElementById("colorV").addEventListener("click", function() {
