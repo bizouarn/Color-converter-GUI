@@ -1,4 +1,9 @@
 <!doctype html>
+<!--
+(\_/)
+(°_°)
+/ > Aymeric Bizouarn 2021 ©
+--!>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
@@ -24,7 +29,7 @@
   </script>
   <div id="content">
     <div class="flex-midle">
-      <input type="color" style="display:none;" id="colorP" onchange="document.getElementById('hexa').value = this.value; changeHexa();"/>
+      <input type="color" style="display:none;" id="colorP" onchange="document.getElementById('hexa').value = document.getElementById('colorP').value; changeHexa();"/>
       <div class="square morph" id="colorV"></div>
     </div>
     <div class="flex-midle morph" style="background:white;">
