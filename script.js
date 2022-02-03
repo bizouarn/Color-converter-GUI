@@ -158,7 +158,7 @@ function update(type){
     document.getElementById("Y").value === "" ? document.getElementById("Y").value = 0 : null;
     document.getElementById("K").value === "" ? document.getElementById("K").value = 0 : null;
   }
-  if(type!="HSV"){
+  if(type!=="HSV"){
     let cmax = max([rbis,gbis,bbis]);
     let cmin = min([rbis,gbis,bbis]);
     let delta = cmax - cmin;
@@ -180,7 +180,7 @@ function update(type){
     document.getElementById("S1").value = delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * l - 1)) * 100) / 100;
     document.getElementById("V").value = Math.round(cmax * 100) / 100;
   }
-  if(type!="HSL"){
+  if(type!=="HSL"){
     let cmax = max([rbis,gbis,bbis]);
     let cmin = min([rbis,gbis,bbis]);
     let delta = cmax - cmin;
