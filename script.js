@@ -80,90 +80,102 @@ function changeCMYK() {
 }
 
 function update(type) {
+    let r = document.getElementById("R").value;
+    let g = document.getElementById("G").value;
+    let b = document.getElementById("B").value;
     if (type === "init") {
-        if (document.getElementById("R").value === "")
-            document.getElementById("R").value = 255;
-        if (document.getElementById("G").value === "")
-            document.getElementById("G").value = 255;
-        if (document.getElementById("B").value === "")
-            document.getElementById("B").value = 255;
+        if (r === "") document.getElementById("R").value = 255;
+        if (g === "") document.getElementById("G").value = 255;
+        if (b === "") document.getElementById("B").value = 255;
     } else if (type !== "RGB") {
-        if (document.getElementById("R").value === "") document.getElementById("R").value = 0;
-        if (document.getElementById("G").value === "") document.getElementById("G").value = 0;
-        if (document.getElementById("B").value === "") document.getElementById("B").value = 0;
+        if (r === "") document.getElementById("R").value = 0;
+        if (g === "") document.getElementById("G").value = 0;
+        if (b === "") document.getElementById("B").value = 0;
     }
-    const r = document.getElementById("R").value;
-    const g = document.getElementById("G").value;
-    const b = document.getElementById("B").value;
+    r = document.getElementById("R").value;
+    g = document.getElementById("G").value;
+    b = document.getElementById("B").value;
     let pr = 100000;
     let rbis = Math.round(r / 255 * pr) / pr;
     let gbis = Math.round(g / 255 * pr) / pr;
     let bbis = Math.round(b / 255 * pr) / pr;
     if (type !== "hexa") {
-        let hr = Number(r).toString(16);
-        let hg = Number(g).toString(16);
-        let hb = Number(b).toString(16);
-        if (hr.length === 0) {
-            hr = "00";
-        } else if (hr.length === 1) {
-            hr = "0" + hr;
-        }
-        if (hg.length === 0) {
-            hg = "00";
-        } else if (hg.length === 1) {
-            hg = "0" + hg;
-        }
-        if (hb.length === 0) {
-            hb = "00";
-        } else if (hb.length === 1) {
-            hb = "0" + hb;
-        }
-        document.getElementById("hexa").value = "#" + hr + hg + hb;
+        updateHexa(r, g, b);
     }
     if (type !== "CMYK") {
-        let k = Math.round((1 - max([rbis, gbis, bbis])) * pr) / pr;
-        document.getElementById("C").value = Math.round((1 - rbis - k) / (1 - k) * 100) / 100;
-        document.getElementById("M").value = Math.round((1 - gbis - k) / (1 - k) * 100) / 100;
-        document.getElementById("Y").value = Math.round((1 - bbis - k) / (1 - k) * 100) / 100;
-        document.getElementById("K").value = Math.round(k * 100) / 100;
-        if (document.getElementById("C").value === "") document.getElementById("C").value = 0;
-        if (document.getElementById("M").value === "") document.getElementById("M").value = 0;
-        if (document.getElementById("Y").value === "") document.getElementById("Y").value = 0;
-        if (document.getElementById("K").value === "") document.getElementById("K").value = 0;
+        updateCMYK(rbis, gbis, bbis, pr);
     }
     if (type !== "HSV" || type !== "HSL") {
-        let cmax = max([rbis, gbis, bbis]);
-        let cmin = min([rbis, gbis, bbis]);
-        let delta = cmax - cmin;
-        let l = (cmax + cmin) / 2;
-        let h;
-        if (delta === 0) {
-            h = 0;
-        } else if (cmax === rbis) {
-            h = Math.round(60 * (((gbis - bbis) % 6) / delta));
-        } else if (cmax === gbis) {
-            h = Math.round(60 * (2 + (bbis - rbis) / delta));
-        } else if (cmax === bbis) {
-            h = Math.round(60 * (4 + (rbis - gbis) / delta));
-        }
-        if (h < 0) {
-            h += 360;
-        }
-        if (type !== "HSV") {
-            document.getElementById("H1").value = h;
-            document.getElementById("S1").value =
-                delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * l - 1)) * 100) / 100;
-            document.getElementById("V").value = Math.round(cmax * 100) / 100;
-        }
-        if (type !== "HSL") {
-            document.getElementById("H2").value = h;
-            document.getElementById("S2").value = delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * ((cmax + cmin) / 2) - 1)) * 100) / 100;
-            document.getElementById("L").value = Math.round((cmax + cmin) / 2 * 100) / 100;
-        }
+        updateHS(rbis, gbis, bbis);
     }
     root.style.setProperty("--r", r);
     root.style.setProperty("--g", g);
     root.style.setProperty("--b", b);
+}
+
+function updateHexa(r,g,b) {
+    let hr = Number(r).toString(16);
+    let hg = Number(g).toString(16);
+    let hb = Number(b).toString(16);
+    if (hr.length === 0) {
+        hr = "00";
+    } else if (hr.length === 1) {
+        hr = "0" + hr;
+    }
+    if (hg.length === 0) {
+        hg = "00";
+    } else if (hg.length === 1) {
+        hg = "0" + hg;
+    }
+    if (hb.length === 0) {
+        hb = "00";
+    } else if (hb.length === 1) {
+        hb = "0" + hb;
+    }
+    document.getElementById("hexa").value = "#" + hr + hg + hb;
+}
+
+function updateCMYK(rbis, gbis, bbis, pr) {
+    let k = Math.round((1 - max([rbis, gbis, bbis])) * pr) / pr;
+    document.getElementById("C").value = Math.round((1 - rbis - k) / (1 - k) * 100) / 100;
+    document.getElementById("M").value = Math.round((1 - gbis - k) / (1 - k) * 100) / 100;
+    document.getElementById("Y").value = Math.round((1 - bbis - k) / (1 - k) * 100) / 100;
+    document.getElementById("K").value = Math.round(k * 100) / 100;
+    if (document.getElementById("C").value === "") document.getElementById("C").value = 0;
+    if (document.getElementById("M").value === "") document.getElementById("M").value = 0;
+    if (document.getElementById("Y").value === "") document.getElementById("Y").value = 0;
+    if (document.getElementById("K").value === "") document.getElementById("K").value = 0;
+}
+
+function updateHS(rbis, gbis, bbis) {
+    let cmax = max([rbis, gbis, bbis]);
+    let cmin = min([rbis, gbis, bbis]);
+    let delta = cmax - cmin;
+    let l = (cmax + cmin) / 2;
+    let h;
+    if (delta === 0) {
+        h = 0;
+    } else if (cmax === rbis) {
+        h = Math.round(60 * (((gbis - bbis) % 6) / delta));
+    } else if (cmax === gbis) {
+        h = Math.round(60 * (2 + (bbis - rbis) / delta));
+    } else if (cmax === bbis) {
+        h = Math.round(60 * (4 + (rbis - gbis) / delta));
+    }
+    if (h < 0) {
+        h += 360;
+    }
+    if (type !== "HSV") {
+        document.getElementById("H1").value = h;
+        document.getElementById("S1").value =
+            delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * l - 1)) * 100) / 100;
+        document.getElementById("V").value = Math.round(cmax * 100) / 100;
+    }
+    if (type !== "HSL") {
+        document.getElementById("H2").value = h;
+        document.getElementById("S2").value = delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * ((cmax + cmin) / 2) - 1)) * 100) / 100;
+        document.getElementById("L").value = Math.round((cmax + cmin) / 2 * 100) / 100;
+    }
 }
 
 function max(tableau) {
