@@ -117,19 +117,13 @@ function updateHexa(r,g,b) {
     let hr = Number(r).toString(16);
     let hg = Number(g).toString(16);
     let hb = Number(b).toString(16);
-    if (hr.length === 0) {
-        hr = "00";
-    } else if (hr.length === 1) {
+    if (hr.length === 1) {
         hr = "0" + hr;
     }
-    if (hg.length === 0) {
-        hg = "00";
-    } else if (hg.length === 1) {
+    if (hg.length === 1) {
         hg = "0" + hg;
     }
-    if (hb.length === 0) {
-        hb = "00";
-    } else if (hb.length === 1) {
+    if (hb.length === 1) {
         hb = "0" + hb;
     }
     document.getElementById("hexa").value = "#" + hr + hg + hb;
@@ -152,10 +146,8 @@ function updateHS(rbis, gbis, bbis) {
     let cmin = min([rbis, gbis, bbis]);
     let delta = cmax - cmin;
     let l = (cmax + cmin) / 2;
-    let h;
-    if (delta === 0) {
-        h = 0;
-    } else if (cmax === rbis) {
+    let h = 0;
+    if (cmax === rbis) {
         h = Math.round(60 * (((gbis - bbis) % 6) / delta));
     } else if (cmax === gbis) {
         h = Math.round(60 * (2 + (bbis - rbis) / delta));
