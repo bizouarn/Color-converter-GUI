@@ -131,7 +131,7 @@ function update(type) {
         if (document.getElementById("Y").value === "") document.getElementById("Y").value = 0;
         if (document.getElementById("K").value === "") document.getElementById("K").value = 0;
     }
-    if (type !== "HSV") {
+    if (type !== "HSV" || type !== "HSL") {
         let cmax = max([rbis, gbis, bbis]);
         let cmin = min([rbis, gbis, bbis]);
         let delta = cmax - cmin;
@@ -149,30 +149,17 @@ function update(type) {
         if (h < 0) {
             h += 360;
         }
-        document.getElementById("H1").value = h;
-        document.getElementById("S1").value = delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * l - 1)) * 100) / 100;
-        document.getElementById("V").value = Math.round(cmax * 100) / 100;
-    }
-    if (type !== "HSL") {
-        let cmax = max([rbis, gbis, bbis]);
-        let cmin = min([rbis, gbis, bbis]);
-        let delta = cmax - cmin;
-        let h;
-        if (delta === 0) {
-            h = 0;
-        } else if (cmax === rbis) {
-            h = Math.round(60 * (((gbis - bbis) % 6) / delta));
-        } else if (cmax === gbis) {
-            h = Math.round(60 * (2 + (bbis - rbis) / delta));
-        } else if (cmax === bbis) {
-            h = Math.round(60 * (4 + (rbis - gbis) / delta));
+        if (type !== "HSV") {
+            document.getElementById("H1").value = h;
+            document.getElementById("S1").value =
+                delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * l - 1)) * 100) / 100;
+            document.getElementById("V").value = Math.round(cmax * 100) / 100;
         }
-        if (h < 0) {
-            h += 360;
+        if (type !== "HSL") {
+            document.getElementById("H2").value = h;
+            document.getElementById("S2").value = delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * ((cmax + cmin) / 2) - 1)) * 100) / 100;
+            document.getElementById("L").value = Math.round((cmax + cmin) / 2 * 100) / 100;
         }
-        document.getElementById("H2").value = h;
-        document.getElementById("S2").value = delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * ((cmax + cmin) / 2) - 1)) * 100) / 100;
-        document.getElementById("L").value = Math.round((cmax + cmin) / 2 * 100) / 100;
     }
     root.style.setProperty("--r", r);
     root.style.setProperty("--g", g);
