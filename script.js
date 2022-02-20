@@ -106,7 +106,7 @@ function update(type) {
         updateCMYK(rbis, gbis, bbis, pr);
     }
     if (type !== "HSV" || type !== "HSL") {
-        updateHS(rbis, gbis, bbis);
+        updateHS(type, rbis, gbis, bbis);
     }
     root.style.setProperty("--r", r);
     root.style.setProperty("--g", g);
@@ -141,7 +141,7 @@ function updateCMYK(rbis, gbis, bbis, pr) {
     if (document.getElementById("K").value === "") document.getElementById("K").value = 0;
 }
 
-function updateHS(rbis, gbis, bbis) {
+function updateHS(type, rbis, gbis, bbis) {
     let cmax = max([rbis, gbis, bbis]);
     let cmin = min([rbis, gbis, bbis]);
     let delta = cmax - cmin;
@@ -157,7 +157,9 @@ function updateHS(rbis, gbis, bbis) {
     if (h < 0) {
         h += 360;
     }
+	if(isNaN(h)) h = 0;
     if (type !== "HSV") {
+		console.log(h);
         document.getElementById("H1").value = h;
         document.getElementById("S1").value =
             delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * l - 1)) * 100) / 100;
