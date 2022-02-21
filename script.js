@@ -1,3 +1,5 @@
+const err = 1000000000;
+
 function changeHexa() {
     const hexa = document.getElementById("hexa").value;
     document.getElementById("R").value = parseInt(hexa.substring(1, 3), 16);
@@ -95,15 +97,14 @@ function update(type) {
     r = document.getElementById("R").value;
     g = document.getElementById("G").value;
     b = document.getElementById("B").value;
-    let pr = 100000;
-    let rbis = Math.round(r / 255 * pr) / pr;
-    let gbis = Math.round(g / 255 * pr) / pr;
-    let bbis = Math.round(b / 255 * pr) / pr;
+    let rbis = Math.round(r / 255 * err) / err;
+    let gbis = Math.round(g / 255 * err) / err;
+    let bbis = Math.round(b / 255 * err) / err;
     if (type !== "hexa") {
         updateHexa(r, g, b);
     }
     if (type !== "CMYK") {
-        updateCMYK(rbis, gbis, bbis, pr);
+        updateCMYK(rbis, gbis, bbis, err);
     }
     if (type !== "HSV" || type !== "HSL") {
         updateHS(type, rbis, gbis, bbis);
@@ -129,12 +130,12 @@ function updateHexa(r,g,b) {
     document.getElementById("hexa").value = "#" + hr + hg + hb;
 }
 
-function updateCMYK(rbis, gbis, bbis, pr) {
-    let k = Math.round((1 - max([rbis, gbis, bbis])) * pr) / pr;
-    document.getElementById("C").value = Math.round((1 - rbis - k) / (1 - k) * 100) / 100;
-    document.getElementById("M").value = Math.round((1 - gbis - k) / (1 - k) * 100) / 100;
-    document.getElementById("Y").value = Math.round((1 - bbis - k) / (1 - k) * 100) / 100;
-    document.getElementById("K").value = Math.round(k * 100) / 100;
+function updateCMYK(rbis, gbis, bbis, err) {
+    let k = Math.round((1 - max([rbis, gbis, bbis])) * err) / err;
+    document.getElementById("C").value = Math.round((1 - rbis - k) / (1 - k) * err) / err;
+    document.getElementById("M").value = Math.round((1 - gbis - k) / (1 - k) * err) / err;
+    document.getElementById("Y").value = Math.round((1 - bbis - k) / (1 - k) * err) / err;
+    document.getElementById("K").value = Math.round(k * err) / err;
     if (document.getElementById("C").value === "") document.getElementById("C").value = 0;
     if (document.getElementById("M").value === "") document.getElementById("M").value = 0;
     if (document.getElementById("Y").value === "") document.getElementById("Y").value = 0;
@@ -159,10 +160,9 @@ function updateHS(type, rbis, gbis, bbis) {
     }
 	if(isNaN(h)) h = 0;
     if (type !== "HSV") {
-		console.log(h);
         document.getElementById("H1").value = h;
         document.getElementById("S1").value =
-            delta === 0 ? 0 : Math.round(delta / (1 - Math.abs(2 * l - 1)) * 100) / 100;
+            cmax === 0 ? 0 : Math.round((delta / cmax) * 100) / 100;
         document.getElementById("V").value = Math.round(cmax * 100) / 100;
     }
     if (type !== "HSL") {
