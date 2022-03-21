@@ -1,4 +1,4 @@
-# 🎨 Color-converter [![Build Status](https://app.travis-ci.com/bizouarn/Color-converter-GUI.svg?branch=PROD)](https://app.travis-ci.com/bizouarn/Color-converter-GUI)
+# 🎨 Color-converter [![Github pages](https://github.com/bizouarn/Color-converter-GUI/actions/workflows/gh-pages.yml/badge.svg?branch=main)](https://github.com/bizouarn/Color-converter-GUI/actions/workflows/gh-pages.yml)
 ## Simple HTML CSS JS GUI for convert color code
 
 ![Screenshot.png](Screenshot.png)
