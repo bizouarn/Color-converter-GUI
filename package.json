@@ -9,7 +9,7 @@
     "lint": "npx -y eslint main.js --fix"
   },
   "engines": {
-    "node": "16"
+    "node": "20"
   },
   "devDependencies": {
     "vite": "^5.1.4"
