@@ -12,6 +12,8 @@
     "node": "20"
   },
   "devDependencies": {
-    "vite": "^5.2.11"
+    "eslint-plugin-html": "^8.1.2",
+    "vite": "^5.2.11",
+    "vite-plugin-html": "^3.2.2"
   }
 }
