@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig({
-  base: '/mon-ip/',
+  base: '/Color-converter-GUI/',
   plugins: [
     createHtmlPlugin({
       minify: true,
